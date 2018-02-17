@@ -15,6 +15,19 @@
 
 <!-- This css is to give a nice big popup "info window" when a marker is clicked on the map -->
 <style>
+    .slim-col{
+        padding:5px;
+    }
+    .content-box
+    {
+        border:1px solid black;
+        padding:2px;
+    }
+    .input-group-addon {
+        background-color: white;
+        padding-bottom: 4px;
+    
+    }
     .infoDiv {
         height: 200px;
         width: 300px;
@@ -22,21 +35,51 @@
         background-color: white;
     }
 </style>
-<br />
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
-{
-    @Html.TextBoxFor(m => m.SearchString)  
+<div class="container">
+    <div class="row">
+        <div class="slim-col col-lg-2">
+            <div class="content-box">
+                <h6>Refine your taste</h6>
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
 
-    <input type="submit" value="Search" />
+                <div class="input-group stylish-input-group">
+                    @Html.TextBoxFor(m => m.SearchString, new { @class = "form-control"})
+                    <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
 }
-<!-- This is the div that will contain the Google Map -->
-<div id="map_canvas" style="height: 550px;"></div>
+            </div>
+        </div>
+        <div class="slim-col col-lg-8"><div id="map_canvas" style="height: 550px;"></div></div>
+        <div class="slim-col col-lg-2">
+            <div class="content-box">
+                @foreach (var mp in Model.Points)
+                {
+                    <h6>
+                        @mp.PlaceName
+                    </h6>
+                    <hr />
+                }
+                </div>
+                <div class="content-box">
+                    show recomendations
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
-@section scripts {
-    <section class="scripts">
+    <br />
 
-        <script type="text/javascript">
+    <!-- This is the div that will contain the Google Map -->
+    <!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
+    @section scripts {
+        <section class="scripts">
+
+            <script type="text/javascript">
 
 
     <!-- This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded. -->
@@ -62,7 +105,7 @@
 
         // a sample list of JSON encoded data of places to visit in Tunisia
         // you can either make up a JSON list server side, or call it from a controller using JSONResult
-        var data = @Html.Raw(Model.MapPointsJSON); 
+        var data = @Html.Raw(Model.MapPointsJSON);
 
         // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
         $.each(data, function (i, item) {
@@ -89,6 +132,6 @@
     }
 
 
-        </script>
-    </section>
-}
+            </script>
+        </section>
+    }
