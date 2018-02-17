@@ -17,12 +17,32 @@ namespace Cry_poc.Controllers
             model.Points.Add(new MapPoint
             {
                 Id = 1,
-                PlaceName = "Zaghouan",
-                GeoLong = "36.401081",
-                GeoLat = "10.16596"
+                PlaceName = "Shop1",
+                GeoLong = "54.972842",
+                GeoLat = "-1.428277"
+            });
+            model.Points.Add(new MapPoint
+            {
+                Id = 2,
+                PlaceName = "Shop2",
+                GeoLong = "54.972823",
+                GeoLat = "-1.458364"
+            });
+            model.Points.Add(new MapPoint
+            {
+                Id = 3,
+                PlaceName = "Shop3",
+                GeoLong = "54.972949",
+                GeoLat = "-1.408400"
             });
             model.MapPointsJSON = Newtonsoft.Json.JsonConvert.SerializeObject(model.Points);
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Index(MapsModel model)
+        {
+            return RedirectToAction("Index");
         }
 
         public IActionResult About()

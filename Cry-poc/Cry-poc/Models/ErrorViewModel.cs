@@ -15,7 +15,7 @@ namespace Cry_poc.Models
         public List<MapPoint> Points { get; set; }
         public string MapPointsJSON { get; set; }
 
-
+        public string SearchString { get; set; }
     }
 
     public class MapPoint
