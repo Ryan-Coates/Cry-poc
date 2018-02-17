@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  cry-poc:
+    image: cry-poc
+    build:
+      context: .
+      dockerfile: Cry-poc/Dockerfile

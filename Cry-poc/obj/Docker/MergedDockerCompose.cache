@@ -1,0 +1,11 @@
+services:
+  cry-poc:
+    build:
+      context: C:\www\Crynch\Cry-poc
+      dockerfile: Cry-poc/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: cry-poc
+    ports:
+    - 80/tcp
+version: '3.0'
