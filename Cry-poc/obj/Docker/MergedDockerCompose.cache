@@ -1,7 +1,7 @@
 services:
   cry-poc:
     build:
-      context: C:\www\Crynch\Cry-poc
+      context: D:\www\Cry-poc\Cry-poc
       dockerfile: Cry-poc/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
