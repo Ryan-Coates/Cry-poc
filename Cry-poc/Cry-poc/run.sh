@@ -1,1 +1,1 @@
-﻿docker run -it -d -p 8088:8088 -e ASPNETCORE_URLS="http://*:8088" --name crypoc hellcaller89/crypoc:latest
+﻿docker run -it -d -p 8088:8088 -e ASPNETCORE_URLS="http://*:8088" --name crypoc hellcaller89/crypoc:v0.02
