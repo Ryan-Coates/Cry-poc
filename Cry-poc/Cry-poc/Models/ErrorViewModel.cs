@@ -16,6 +16,10 @@ namespace Cry_poc.Models
         public string MapPointsJSON { get; set; }
 
         public string SearchString { get; set; }
+
+        public List<Recomendation> Recomendations { get; set; }
+
+        public List<Promotion> Promotions { get; set; }
     }
 
     public class MapPoint
@@ -26,5 +30,22 @@ namespace Cry_poc.Models
         public string GeoLong { get; set; }
         public string GeoLat { get; set; }
 
+        public string Rating { get; set; }
+        public string Distance { get; set; }
+        public string Offer { get; set; }
+
+    }
+
+    public class Recomendation
+    {
+        public int Id { get; set; }
+        public string PlaceName { get; set; }
+        public string Description { get; set; }
+    }
+    public class Promotion
+    {
+        public int Id { get; set; }
+        public string PlaceName { get; set; }
+        public string Description { get; set; }
     }
 }

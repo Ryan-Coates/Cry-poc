@@ -15,19 +15,20 @@
 
 <!-- This css is to give a nice big popup "info window" when a marker is clicked on the map -->
 <style>
-    .slim-col{
-        padding:5px;
+    .slim-col {
+        padding: 5px;
     }
-    .content-box
-    {
-        border:1px solid black;
-        padding:2px;
+
+    .content-box {
+        border: 1px solid black;
+        padding: 2px;
     }
+
     .input-group-addon {
         background-color: white;
         padding-bottom: 4px;
-    
     }
+
     .infoDiv {
         height: 200px;
         width: 300px;
@@ -38,48 +39,123 @@
 <div class="container">
     <div class="row">
         <div class="slim-col col-lg-2">
-            <div class="content-box">
-                <h6>Refine your taste</h6>
-                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-    {
+            <div>
+                <nav class="navbar navbar-dark grey mb-4" style="margin:0px;padding:0px;">
 
-                <div class="input-group stylish-input-group">
-                    @Html.TextBoxFor(m => m.SearchString, new { @class = "form-control"})
-                    <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
+                    <nav class="navbar navbar-inverse" style="margin:0px;padding:0px;">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><span class="glyphicon glyphicon-th-list"></span></a>
+                            </div>
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Menu</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+
+                </nav>
+            </div>
+            <br />
+            <div class="content-box">
+
+
+                <label>Refine your taste</label>
+                <br />
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Currencies
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">BitCoin</a>
+                        <a class="dropdown-item" href="#">Etherium</a>
+                        <a class="dropdown-item" href="#">Ripple</a>
+                    </div>
                 </div>
-}
+                <br />
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Cuisine
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Chinese</a>
+                        <a class="dropdown-item" href="#">Italian</a>
+                        <a class="dropdown-item" href="#">American</a>
+                    </div>
+                </div>
+                <br />
+                <h6>Distance</h6>
+                <input type="range" min="1" max="100" value="50">
+                <br />
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                {
+
+                    <div class="input-group stylish-input-group">
+                        @Html.TextBoxFor(m => m.SearchString, new { @class = "form-control" })
+                        <span class="input-group-addon">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                }
+            </div>
+            <br />
+            <div class="content-box">
+                <label>Promotions near you</label>
+                @foreach (var p in Model.Promotions)
+                {
+                    <p>@p.PlaceName  : @p.Description</p>
+                    <hr />
+                }
             </div>
         </div>
-        <div class="slim-col col-lg-8"><div id="map_canvas" style="height: 550px;"></div></div>
+        <div class="slim-col col-lg-8"><div id="map_canvas" style="height: 900px;"></div></div>
         <div class="slim-col col-lg-2">
             <div class="content-box">
                 @foreach (var mp in Model.Points)
                 {
-                    <h6>
-                        @mp.PlaceName
-                    </h6>
+                    <hr />
+                    <p>
+                        @mp.PlaceName @mp.Rating
+                    </p>
+                    <p>
+                        Distance: @mp.Distance
+                    </p>
+                    <p>
+                        @mp.Offer
+                    </p>
+                    <a class="glyphicon glyphicon-chevron-right" style="position: relative;    right: -150px;    top: -90px;"></a>
+                }
+            </div>
+            <br />
+            <div class="content-box">
+                <label>Show recomendations</label>
+                @foreach (var r in Model.Recomendations)
+                {
+                    <p>@r.PlaceName  : @r.Description</p>
                     <hr />
                 }
-                </div>
-                <div class="content-box">
-                    show recomendations
-                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <br />
+<br />
 
-    <!-- This is the div that will contain the Google Map -->
-    <!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
-    @section scripts {
-        <section class="scripts">
+<!-- This is the div that will contain the Google Map -->
+<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
+@section scripts {
+    <section class="scripts">
 
-            <script type="text/javascript">
+        <script type="text/javascript">
 
 
     <!-- This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded. -->
@@ -132,6 +208,6 @@
     }
 
 
-            </script>
-        </section>
-    }
+        </script>
+    </section>
+}
