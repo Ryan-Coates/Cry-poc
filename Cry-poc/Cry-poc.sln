@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cry-poc", "Cry-poc\Cry-poc.csproj", "{2EF5DCCF-C743-492F-BC83-53A15F01FA58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypoc", "Cry-poc\Crypoc.csproj", "{2EF5DCCF-C743-492F-BC83-53A15F01FA58}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4E371CCD-4556-454D-B084-2CCE685C70EB}"
 EndProject

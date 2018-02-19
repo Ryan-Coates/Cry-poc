@@ -1,4 +1,4 @@
-﻿@model MapsModel;
+﻿@model Crypoc.Models.StoreModel;
 
 @{
     ViewData["Title"] = "Home Page";
@@ -69,6 +69,7 @@
 
                 <label>Refine your taste</label>
                 <br />
+                @Html.DropDownListFor(x => x.Currencies, "Currencies");
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Currencies
@@ -120,7 +121,7 @@
         <div class="slim-col col-lg-8"><div id="map_canvas" style="height: 900px;"></div></div>
         <div class="slim-col col-lg-2">
             <div class="content-box">
-                @foreach (var mp in Model.Points)
+                @foreach (var mp in Model.Stores)
                 {
                     <hr />
                     <p>
