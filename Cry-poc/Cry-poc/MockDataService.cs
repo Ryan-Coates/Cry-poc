@@ -9,59 +9,14 @@ namespace Crypoc
 {
     public class MockDataService
     {
-        public StoreModel GetStoreModel()
+        public StoreModel GetStoreModel(StoreModel model)
         {
-            StoreModel model = new StoreModel();
-            
-            var currencies = from CurrencyEnum d in Enum.GetValues(typeof(CurrencyEnum))
-                             select new { ID = (int)d, Name = d.ToString() };            
-            model.Currencies = new SelectList(currencies, "ID", "Name");
 
-            var themes = from CurrencyEnum d in Enum.GetValues(typeof(ThemesEnum))
-                             select new { ID = (int)d, Name = d.ToString() };
-            model.Themes = new SelectList(themes, "ID", "Name");
+            populateFilteredModel(model);
 
-
-            model.Stores = new List<Store>();
-            model.Stores.Add(new Store
-            {
-                Id = 1,
-                PlaceName = "Chinese palace",
-                GeoLong = "54.972842",
-                GeoLat = "-1.428277",
-                Distance = "12 km",
-                Offer = "Promo: 20% off",
-                Rating = "4.5/5",
-                Theme = "Food",
-                Currencies = new List<CurrencyEnum>() { CurrencyEnum.BitCoin, CurrencyEnum.Ripple, CurrencyEnum.Etherium}
-
-            });
-            model.Stores.Add(new Store
-            {
-                Id = 2,
-                PlaceName = "King kebab",
-                GeoLong = "54.972823",
-                GeoLat = "-1.458364",
-                Distance = "1 km",
-                Offer = "None",
-                Rating = "4.1/5",
-                Theme = "Food",
-                Currencies = new List<CurrencyEnum>() { CurrencyEnum.BitCoin, CurrencyEnum.Etherium }
-            });
-            model.Stores.Add(new Store
-            {
-                Id = 3,
-                PlaceName = "Pizza Pizza!",
-                GeoLong = "54.972949",
-                GeoLat = "-1.408400",
-                Distance = "2 km",
-                Offer = "Promo: Buy one get one free",
-                Rating = "3.5/5",
-                Theme = "Vaping",
-                Currencies = new List<CurrencyEnum>() { CurrencyEnum.BitCoin}
-            });
             model.GenerateJSON();
 
+            #region todo; this should all be refactored into something but who cares right now?
             model.Promotions = new List<Promotion>();
             model.Promotions.Add(new Promotion
             {
@@ -111,7 +66,62 @@ namespace Crypoc
                 Description = "Tried and toasted! Get 5% off on us!"
 
             });
+            #endregion
+
             return model;
+        }
+
+        private void populateFilteredModel(StoreModel model)
+        {
+            model.Stores = new List<Store>();
+            model.Stores.Add(new Store
+            {
+                Id = 1,
+                PlaceName = "Chinese palace",
+                GeoLong = "54.972842",
+                GeoLat = "-1.428277",
+                Distance = "12 km",
+                Offer = "Promo: 20% off",
+                Rating = "4.5/5",
+                Theme = ThemesEnum.Food.ToString(),
+                Currencies = new List<CurrencyEnum>() { CurrencyEnum.BitCoin, CurrencyEnum.Ripple, CurrencyEnum.Etherium }
+
+            });
+            model.Stores.Add(new Store
+            {
+                Id = 2,
+                PlaceName = "King kebab",
+                GeoLong = "54.972823",
+                GeoLat = "-1.458364",
+                Distance = "1 km",
+                Offer = "None",
+                Rating = "4.1/5",
+                Theme = ThemesEnum.Food.ToString(),
+                Currencies = new List<CurrencyEnum>() { CurrencyEnum.BitCoin, CurrencyEnum.Etherium }
+            });
+            model.Stores.Add(new Store
+            {
+                Id = 3,
+                PlaceName = "Pizza Pizza!",
+                GeoLong = "54.972949",
+                GeoLat = "-1.408400",
+                Distance = "2 km",
+                Offer = "Promo: Buy one get one free",
+                Rating = "3.5/5",
+                Theme = ThemesEnum.Vaping.ToString(),
+                Currencies = new List<CurrencyEnum>() { CurrencyEnum.BitCoin }
+            });
+
+            //todo: obvs this isn't the best way to filter we can do it on the data capture
+            if (model.Theme == ThemesEnum.All)
+            {
+                model.Stores = model.Stores.Where(x => x.Theme == model.Theme.ToString()).ToList();
+            }
+            if (model.Currency == CurrencyEnum.All)
+            {
+                model.Stores = model.Stores.Where(x => x.Currencies.Contains(model.Currency)).ToList();
+            }
+
         }
     }
 }

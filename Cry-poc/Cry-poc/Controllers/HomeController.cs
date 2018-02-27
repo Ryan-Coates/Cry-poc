@@ -15,14 +15,15 @@ namespace Crypoc.Controllers
         MockDataService mockDataService = new MockDataService();
         public IActionResult Index()
         {
-            var model = mockDataService.GetStoreModel();
+            var model = mockDataService.GetStoreModel(new StoreModel());
             return View(model);
         }
 
         [HttpPost]
         public IActionResult Index(StoreModel model)
         {
-            return RedirectToAction("Index");
+            var newModel = mockDataService.GetStoreModel(model);
+            return View(newModel);
         }
 
         public IActionResult About()

@@ -15,10 +15,11 @@ namespace Crypoc.Models
 
         public List<Recomendation> Recomendations { get; set; }
 
-        public List<Promotion> Promotions { get; set; }
+        public List<Promotion> Promotions { get; set; }        
 
-        public SelectList Currencies { get; set; }
-        public SelectList Themes { get; set; }
+        public CurrencyEnum Currency { get; set; }
+
+        public ThemesEnum Theme { get; set; }
 
         public void GenerateJSON()
         {
