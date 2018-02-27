@@ -102,22 +102,22 @@ namespace Crypoc
             model.Stores.Add(new Store
             {
                 Id = 3,
-                PlaceName = "Pizza Pizza!",
+                PlaceName = "Vape Vaporium!",
                 GeoLong = "54.972949",
                 GeoLat = "-1.408400",
                 Distance = "2 km",
-                Offer = "Promo: Buy one get one free",
+                Offer = "Promo: 20% off with Vape tricks",
                 Rating = "3.5/5",
                 Theme = ThemesEnum.Vaping.ToString(),
                 Currencies = new List<CurrencyEnum>() { CurrencyEnum.BitCoin }
             });
 
             //todo: obvs this isn't the best way to filter we can do it on the data capture
-            if (model.Theme == ThemesEnum.All)
+            if (model.Theme != ThemesEnum.All)
             {
                 model.Stores = model.Stores.Where(x => x.Theme == model.Theme.ToString()).ToList();
             }
-            if (model.Currency == CurrencyEnum.All)
+            if (model.Currency != CurrencyEnum.All)
             {
                 model.Stores = model.Stores.Where(x => x.Currencies.Contains(model.Currency)).ToList();
             }
